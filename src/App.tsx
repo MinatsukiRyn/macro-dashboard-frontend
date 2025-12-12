@@ -72,67 +72,67 @@ function App() {
 
       {data && (
         <>
-                    <section className="charts-section">
-            <div className="chart-card">
-              <h3>CPI YoY (%)</h3>
-              {cpiHistory ? (
-                <ResponsiveContainer width="100%" height={260}>
-                  <LineChart data={cpiHistory}>
-                    <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-                    <XAxis
-                      dataKey="date"
-                      tickFormatter={(d) => d.slice(0, 7)}
-                      minTickGap={20}
-                    />
-                    <YAxis domain={["auto", "auto"]} />
-                    <Tooltip
-                      formatter={(value: any) =>
-                        value === null ? "-" : `${(value as number).toFixed(2)} %`
-                      }
-                      labelFormatter={(label) => `Date: ${label}`}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="yoy"
-                      dot={false}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              ) : (
-                <p>Loading CPI history…</p>
-              )}
-            </div>
+<section className="cards-row">
+  <MetricCard
+    title="Federal Funds Rate"
+    value={`${formatNumber(data.fedFunds.value, 2)} %`}
+    subtitle={`Data date: ${formatDate(data.fedFunds.date)}`}
+  />
 
-            <div className="chart-card">
-              <h3>Unemployment Rate (%)</h3>
-              {unempHistory ? (
-                <ResponsiveContainer width="100%" height={260}>
-                  <LineChart data={unempHistory}>
-                    <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-                    <XAxis
-                      dataKey="date"
-                      tickFormatter={(d) => d.slice(0, 7)}
-                      minTickGap={20}
-                    />
-                    <YAxis domain={["auto", "auto"]} />
-                    <Tooltip
-                      formatter={(value: any) =>
-                        value === null ? "-" : `${(value as number).toFixed(2)} %`
-                      }
-                      labelFormatter={(label) => `Date: ${label}`}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="value"
-                      dot={false}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              ) : (
-                <p>Loading unemployment history…</p>
-              )}
-            </div>
-          </section>
+  <MetricCard
+    title="Core CPI YoY"
+    value={
+      data.inflation.coreCpiYoY !== null
+        ? `${formatNumber(data.inflation.coreCpiYoY, 2)} %`
+        : "-"
+    }
+    subtitle={`CPI period: ${formatDate(data.inflation.date)}`}
+  />
+
+  <MetricCard
+    title="Unemployment Rate"
+    value={
+      data.labour.unemploymentRate.value !== null
+        ? `${formatNumber(data.labour.unemploymentRate.value, 2)} %`
+        : "-"
+    }
+    subtitle={`Data date: ${formatDate(data.labour.unemploymentRate.date)}`}
+  />
+
+  <MetricCard
+    title="10Y–3M Term Spread"
+    value={
+      data.yields.termSpread !== null
+        ? `${formatNumber(data.yields.termSpread, 2)} %`
+        : "-"
+    }
+    subtitle={`2Y: ${formatNumber(data.yields.twoYear.value, 2)}% • 10Y: ${formatNumber(
+      data.yields.tenYear.value,
+      2
+    )}% • 3M: ${formatNumber(data.yields.threeMonth.value, 2)}%`}
+  />
+
+  <MetricCard
+    title="HY OAS"
+    value={
+      data.financial.hyoas.value !== null
+        ? `${formatNumber(data.financial.hyoas.value, 2)} %`
+        : "-"
+    }
+    subtitle={`Data date: ${formatDate(data.financial.hyoas.date)}`}
+  />
+
+  <MetricCard
+    title="NFCI"
+    value={
+      data.financial.nfci.value !== null
+        ? `${formatNumber(data.financial.nfci.value, 2)}`
+        : "-"
+    }
+    subtitle={`Data date: ${formatDate(data.financial.nfci.date)}`}
+  />
+</section>
+
 
 
           <section className="policy-section">

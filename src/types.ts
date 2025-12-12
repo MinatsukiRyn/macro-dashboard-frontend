@@ -5,19 +5,30 @@ export interface SimplePoint {
 
 export interface OverviewResponse {
   fedFunds: SimplePoint;
+
   inflation: {
     cpiIndex: number | null;
     cpiYoY: number | null;
+    coreCpiYoY: number | null;
     date: string | null;
   };
+
   labour: {
     unemploymentRate: SimplePoint;
   };
+
   yields: {
+    twoYear: SimplePoint;
     tenYear: SimplePoint;
     threeMonth: SimplePoint;
     termSpread: number | null;
   };
+
+  financial: {
+    hyoas: SimplePoint;
+    nfci: SimplePoint;
+  };
+
   policyBias: {
     label: "hawkish" | "neutral" | "dovish";
     score: number;
@@ -27,6 +38,7 @@ export interface OverviewResponse {
 
 export interface TimePoint {
   date: string;
-  value?: number | null; // 给失业率
-  yoy?: number | null;   // 给 CPI YoY
+  value?: number | null;
+  yoy?: number | null;
 }
+
